@@ -1,4 +1,4 @@
-# <a http://www.populationassociation.org/sidebar/annual-meeting/ target ="_blank">PAA 2017</a> Social Media Workshop
+# <a href = "http://www.populationassociation.org/sidebar/annual-meeting/" target ="_blank">PAA 2017</a> Social Media Workshop
 ## Chicago, Illinois
 
 This repository contains the materials prepared by <a href = "mailto:ezagheni@uw.edu" target ="_blank">Emilio Zagheni</a>
