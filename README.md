@@ -1,4 +1,4 @@
-# PAA 2017 Social Media Workshop
+# <a http://www.populationassociation.org/sidebar/annual-meeting/ target ="_blank">PAA 2017</a> Social Media Workshop
 ## Chicago, Illinois
 
 This repository contains the materials prepared by <a href = "mailto:ezagheni@uw.edu" target ="_blank">Emilio Zagheni</a>
@@ -9,4 +9,3 @@ This repository contains the materials prepared by <a href = "mailto:ezagheni@uw
 ## Overview 
 
 <a name="UW">1</a>: University of Washington  
-<a name="Berkeley">2</a>: University of California, Berkeley  
