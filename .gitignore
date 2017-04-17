@@ -63,5 +63,5 @@ docs/_build/
 
 # folders
 
-credentials/*.csv
+facebook/credentials/*.csv
 
