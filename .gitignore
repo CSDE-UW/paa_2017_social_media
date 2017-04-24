@@ -43,6 +43,7 @@ __pycache__/
 *.egg-info/
 .installed.cfg
 *.egg
+*.pyc
 
 
 # Installer logs
@@ -63,5 +64,5 @@ docs/_build/
 
 # folders
 
-facebook/credentials/*.csv
-
+Estimate_Facebook_Audience/credentials/*.csv
+Estimate_Facebook_Audience/data/new_movers_by_state/*

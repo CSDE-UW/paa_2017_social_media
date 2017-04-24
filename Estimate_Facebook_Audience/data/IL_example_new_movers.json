@@ -1,0 +1,35 @@
+{
+    "name": "IL_example", 
+    "genders": [
+        0, 
+        1, 
+        2
+    ], 
+    "behavior": [
+        {
+            "or": [
+                6029662272682
+            ], 
+            "name": "new_mover"
+        }
+    ], 
+    "ages_ranges": [
+        {
+            "max": 65, 
+            "min": 13
+        }
+    ], 
+    "geo_locations": [
+        {
+            "values": [
+                {
+                    "key": "3856"
+                }
+            ], 
+            "name": "regions", 
+            "location_types": [
+                "home"
+            ]
+        }
+    ]
+}
