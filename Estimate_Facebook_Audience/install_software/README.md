@@ -1,3 +1,8 @@
+## Install Anaconda
+- use the bash script associated with your operating system (e.g. anaconda_script_osx.sh is for OSX) to automatically download and install Python3.5
+	* type `sh SCRIPT` to install 
+
+
 ## Install pySocialWatcher
 - **pySocialWatcher is currently only compatible with Python2.7**
     * if you downloaded Anaconda for Python3.x you can create a conda environment with Python2.7
