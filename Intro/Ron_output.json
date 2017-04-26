@@ -1,0 +1,73 @@
+{
+    "face": [
+        {
+            "attribute": {
+                "age": {
+                    "range": 10, 
+                    "value": 66
+                }, 
+                "gender": {
+                    "confidence": 99.736, 
+                    "value": "Male"
+                }, 
+                "glass": {
+                    "confidence": 81.4425, 
+                    "value": "None"
+                }, 
+                "pose": {
+                    "pitch_angle": {
+                        "value": -6.4e-05
+                    }, 
+                    "roll_angle": {
+                        "value": 4.24812
+                    }, 
+                    "yaw_angle": {
+                        "value": 0.972503
+                    }
+                }, 
+                "race": {
+                    "confidence": 96.5896, 
+                    "value": "White"
+                }, 
+                "smiling": {
+                    "value": 79.8383
+                }
+            }, 
+            "face_id": "ac00f08805cb6dc4a5defe497b3f42c6", 
+            "position": {
+                "center": {
+                    "x": 50.689655, 
+                    "y": 46.25
+                }, 
+                "eye_left": {
+                    "x": 38.651241, 
+                    "y": 38.34425
+                }, 
+                "eye_right": {
+                    "x": 63.382552, 
+                    "y": 39.6761
+                }, 
+                "height": 35.5, 
+                "mouth_left": {
+                    "x": 37.592276, 
+                    "y": 55.2855
+                }, 
+                "mouth_right": {
+                    "x": 59.008138, 
+                    "y": 56.7075
+                }, 
+                "nose": {
+                    "x": 53.050207, 
+                    "y": 47.35045
+                }, 
+                "width": 48.965517
+            }, 
+            "tag": ""
+        }
+    ], 
+    "img_height": 200, 
+    "img_id": "06e8760b0a7e8d49663cff53b8972746", 
+    "img_width": 145, 
+    "session_id": "7e92064d765d4299a7effbc071e0fc20", 
+    "url": "http://www.demog.berkeley.edu/images/ron_lee2.jpg"
+}

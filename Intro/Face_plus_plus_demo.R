@@ -49,10 +49,10 @@ plain_json_output<- getURL(url_for_request)
 plain_json_output
 
 #writeLines(plain_json_output, "Ron_output.json")
-#plain_json_output<-readLines("Ron_output.json")
+plain_json_output<-readLines("Ron_output.json")
 
 ## convert the json output into a list
-output_list <- fromJSON(plain_json_output)
+output_list <- fromJSON(paste(plain_json_output,collapse=""))
 output_list
 
 ## extract attributes that interest you about Ron (or anybody else)
@@ -70,7 +70,7 @@ output_list$face[[1]]$attribute$gender$value
 ## You have gone though the basic steps
 ## Once you are comfortable with those steps, you can automate the process
 
-## First of all we can write a function that takes the url of the picture
+## For example you start by writing a function that takes the url of the picture
 ## as input and returns the content of the json file as output
 
 figure_details<- function(pic_url){
@@ -91,38 +91,6 @@ Ron_estimate$face[[1]]$attribute$age$value
 ## Note the we uses the "try" function. What does it do? Why is it important?
 ## some information about "try" can be found by typing
 ## help(try)
-
-pic_bil <- "http://www.population-europe.eu/sites/default/files/styles/bxslider_node_detailpage/public/media-images/pe_event_2012_brussels_3.jpg?itok=Qy-6FeVA"
-
-Billari_estimate<- try(figure_details(pic_bil),silent=TRUE)
-
-Billari_estimate
-Billari_estimate$face[[1]]$attribute$age$value
-Billari_estimate$face[[1]]$attribute$age$range
-Billari_estimate$face[[1]]$attribute$race$value 
-Billari_estimate$face[[1]]$attribute$gender$value
-
-
-## Now imagine that you had a list of URLs, for example for images  of faculty in Demography at UC Berkeley: 
-#http://www.demog.berkeley.edu/faculty/dfcm.shtml
-
-pics_Berkeley<- c("http://www.demog.berkeley.edu/images/Irene_Bloemraad_Sociology.jpg","http://www.demog.berkeley.edu/images/wdow.jpg","http://www.demog.berkeley.edu/images/feehan_144.jpeg","http://www.demog.berkeley.edu/images/joshgoldstein.jpg","http://www.demog.berkeley.edu/images/geneb.jpg","http://www.demog.berkeley.edu/images/baseball350_UCBarticle_144.jpg","http://www.demog.berkeley.edu/images/lucas.jpg")
- 
-############### 
-### TO DO ###### 
-## Write a loop that calls the function at each iteration to store an estimate of age of each person in a new vector.
-
-
-
-########
-
-age_Berkeley_folks<- rep(NA,length(pics_Berkeley))
-for (ii in 1:length(pics_Berkeley)){
-  
-  temp_output <- figure_details(pics_Berkeley[ii])
-  age_Berkeley_folks[ii]<- temp_output$face[[1]]$attribute$age$value
-  }
-
 
 
 
