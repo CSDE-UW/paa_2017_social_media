@@ -64,5 +64,5 @@ docs/_build/
 
 # folders
 
-Estimate_Facebook_Audience/credentials/*.csv
+Estimate_Facebook_Audience/credentials/facebook_credentials.csv
 Estimate_Facebook_Audience/data/new_movers_by_state/*

@@ -2,10 +2,11 @@
 
 folder | contents
 ---|---------
-`credentials` | Facebook API credentials .csv
+`credentials` | Facebook API credentials .csv file
 `data` |  raw data files created from data collection scripts
-`install_software` |  scripts to install anaconda
-`notebooks` |  
+`install_software` |  scripts to install Anaconda and pySocialWatcher
+`notebooks` | notebooks to collect data from Facebook Marketing API
+`pySocialWatcher` | pySocialWatcher module
 
 ## Software
 
