@@ -1,4 +1,4 @@
-echo "EAAFhfgQIkBMBAKKd0VQbX0Dc0U3oox8GI8rjc8aaaD4190cAMGlie7hgrf5AAEXg2Q9b42pEUspS3kDZAIQvPZAZBkBzbpOVkeH9mZAYGb7x6whZAXdWZAinUNzM81B1yngYLba5Pa0PMlNcmPC9vqUVqPxBEg17TnEpukHuiCxBQDaf31rtHB, 157833648035642" > facebook_credentials.csv
+echo "Facebook_Token, Ads_Manager_AccountID" > facebook_credentials.csv
 
 #Facebook_Token: 181 characters, alphanumeric
 #Ads_Manager_AccountID: 15 characters, all numbers
