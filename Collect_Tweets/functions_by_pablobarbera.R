@@ -425,3 +425,144 @@ getLimitRate <- function(twitCred){
   return(unlist(rjson::fromJSON(response)$resources$application$`/application/rate_limit_status`[['remaining']]))
 }
 
+#Updated parseTweets => parseTweets2, readTweets => readTweets2 functions
+#Adjusts for encoding problems
+#Includes unlistWithNA dependency
+#Lee Fiorio - 2017.04.24 - fiorio@uw.edu
+
+readTweets2 <- function(tweets, verbose=TRUE){
+  ## checking input is correct
+  if (is.null(tweets)){
+    stop("Error: you need to specify file or object where tweets text was stored.")
+  }
+  
+  ## Read the text file and save it in memory as a list           
+  if (length(tweets)==1 && file.exists(tweets)){
+    lines <- readLines(tweets)
+  }       
+  else {
+    lines <- tweets
+  }
+  ## Converting to UTF-8
+  ## Encoding lines added by Lee Fiorio fiorio@uw.edu 2017-04-24
+  
+  if (Sys.info()["sysname"]=="Windows"){
+    lines <- iconv(lines, "UTF-8", "Latin1", sub="")     
+  }
+  else {
+    lines <- iconv(lines, "ASCII", "UTF-8", sub="")
+  }
+  
+  results.list <- lapply(lines[nchar(lines)>0], function(x) tryCatch(fromJSON(x), error=function(e) e))
+  
+  ## check if JSON file is coming from search endpoint instead of API
+  search <- 'search_metadata' %in% names(results.list[[1]])
+  if (search) results.list <- results.list[[1]]$statuses
+  
+  ## removing lines that do not contain tweets or were not properly parsed
+  #errors <- which(unlist(lapply(results.list, length))<18)
+  if (!search){
+    errors <- which(unlist(lapply(results.list, function(x) 'id' %in% names(x) == FALSE)))
+    if (length(errors)>0){
+      results.list <- results.list[-errors]
+    }        
+  }
+  
+  # information message
+  if (verbose==TRUE) message(length(results.list), " tweets have been parsed.")
+  return(results.list)
+}
+
+parseTweets2 <- function (tweets, simplify = FALSE, verbose = TRUE) 
+{
+  results.list <- readTweets2(tweets, verbose = FALSE)
+  if (length(results.list) == 0) {
+    stop(deparse(substitute(tweets)), " did not contain any tweets. ", 
+         "See ?parseTweets for more details.")
+  }
+  df <- data.frame(text = unlistWithNA(results.list, "text"), 
+                   retweet_count = unlistWithNA(results.list, "retweet_count"), 
+                   favorite_count = unlistWithNA(results.list, "favorite_count"), 
+                   favorited = unlistWithNA(results.list, "favorited"), 
+                   truncated = unlistWithNA(results.list, "truncated"), 
+                   id_str = unlistWithNA(results.list, "id_str"), in_reply_to_screen_name = unlistWithNA(results.list, 
+                                                                                                         "in_reply_to_screen_name"), source = unlistWithNA(results.list, 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        c("user", "screen_name")), stringsAsFactors = F)
+  if (simplify == FALSE) {
+    df$country_code <- unlistWithNA(results.list, c("place", 
+                                                    "country_code"))
+    df$country <- unlistWithNA(results.list, c("place", "country"))
+    df$place_type <- unlistWithNA(results.list, c("place", 
+                                                  "place_type"))
+    df$full_name <- unlistWithNA(results.list, c("place", 
+                                                 "full_name"))
+    df$place_name <- unlistWithNA(results.list, c("place", 
+                                                  "name"))
+    df$place_id <- unlistWithNA(results.list, c("place", 
+                                                "id"))
+    place_lat_1 <- unlistWithNA(results.list, c("place", 
+                                                "bounding_box", "coordinates", 1, 1, 2))
+    place_lat_2 <- unlistWithNA(results.list, c("place", 
+                                                "bounding_box", "coordinates", 1, 2, 2))
+    df$place_lat <- sapply(1:length(results.list), function(x) mean(c(place_lat_1[x], 
+                                                                      place_lat_2[x]), na.rm = TRUE))
+    place_lon_1 <- unlistWithNA(results.list, c("place", 
+                                                "bounding_box", "coordinates", 1, 1, 1))
+    place_lon_2 <- unlistWithNA(results.list, c("place", 
+                                                "bounding_box", "coordinates", 1, 3, 1))
+    df$place_lon <- sapply(1:length(results.list), function(x) mean(c(place_lon_1[x], 
+                                                                      place_lon_2[x]), na.rm = TRUE))
+    df$lat <- unlistWithNA(results.list, c("geo", "coordinates", 
+                                           1))
+    df$lon <- unlistWithNA(results.list, c("geo", "coordinates", 
+                                           2))
+    df$expanded_url <- unlistWithNA(results.list, c("entities", 
+                                                    "urls", 1, "expanded_url"))
+    df$url <- unlistWithNA(results.list, c("entities", "urls", 
+                                           1, "url"))
+  }
+  if (verbose == TRUE) 
+    message(length(df$text), " tweets have been parsed.")
+  return(df)
+}
+
+unlistWithNA <- function(lst, field){
+  if (length(field)==1){
+    notnulls <- unlist(lapply(lst, function(x) !is.null(x[[field]])))
+    vect <- rep(NA, length(lst))
+    vect[notnulls] <- unlist(lapply(lst[notnulls], '[[', field))
+  }
+  if (length(field)==2){
+    notnulls <- unlist(lapply(lst, function(x) !is.null(x[[field[1]]][[field[2]]])))
+    vect <- rep(NA, length(lst))
+    vect[notnulls] <- unlist(lapply(lst[notnulls], function(x) x[[field[1]]][[field[2]]]))
+  }
+  if (length(field)==3 & field[1]!="geo"){
+    notnulls <- unlist(lapply(lst, function(x) !is.null(x[[field[1]]][[field[2]]][[field[3]]])))
+    vect <- rep(NA, length(lst))
+    vect[notnulls] <- unlist(lapply(lst[notnulls], function(x) x[[field[1]]][[field[2]]][[field[3]]]))
+  }
+  if (field[1]=="geo"){
+    notnulls <- unlist(lapply(lst, function(x) !is.null(x[[field[1]]][[field[2]]])))
+    vect <- rep(NA, length(lst))
+    vect[notnulls] <- unlist(lapply(lst[notnulls], function(x) x[[field[1]]][[field[2]]][[as.numeric(field[3])]]))
+  }
+  
+  if (length(field)==4 && field[2]!="urls"){
+    notnulls <- unlist(lapply(lst, function(x) length(x[[field[1]]][[field[2]]][[field[3]]][[field[4]]])>0))
+    vect <- rep(NA, length(lst))
+    vect[notnulls] <- unlist(lapply(lst[notnulls], function(x) x[[field[1]]][[field[2]]][[field[3]]][[field[4]]]))
+  }
+  if (length(field)==4 && field[2]=="urls"){
+    notnulls <- unlist(lapply(lst, function(x) length(x[[field[1]]][[field[2]]])>0))
+    vect <- rep(NA, length(lst))
+    vect[notnulls] <- unlist(lapply(lst[notnulls], function(x) x[[field[1]]][[field[2]]][[as.numeric(field[3])]][[field[4]]]))
+  }
+  if (length(field)==6 && field[2]=="bounding_box"){
+    notnulls <- unlist(lapply(lst, function(x) length(x[[field[1]]][[field[2]]])>0))
+    vect <- rep(NA, length(lst))
+    vect[notnulls] <- unlist(lapply(lst[notnulls], function(x) 
+      x[[field[1]]][[field[2]]][[field[3]]][[as.numeric(field[4])]][[as.numeric(field[5])]][[as.numeric(field[6])]]))
+  }
+  return(vect)
+}
