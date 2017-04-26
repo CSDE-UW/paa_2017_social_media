@@ -6,8 +6,6 @@ This repository contains the materials prepared by <a href = "mailto:ezagheni@uw
 <sup>[1](#UW)</sup>, <a href = "mailto:kpolimis@uw.edu" target ="_blank">Kivan Polimis</a>
 <sup>[1](#UW)</sup>, and <a href = "mailto:fiorio@uw.edu" target ="_blank">Lee Fiorio</a>
 <sup>[1](#UW)</sup> for the PAA 2017 Social Medial Workshop.
-folder | contents
-
 
 folder | contents
 ---|---------
