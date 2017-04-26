@@ -1,6 +1,6 @@
 # <a href = "http://www.populationassociation.org/sidebar/annual-meeting/" target ="_blank">PAA 2017</a> Social Media Workshop
 ## Chicago, Illinois
-### 26^th^ April 2017
+### 26 April 2017
 
 This repository contains the materials prepared by <a href = "mailto:ezagheni@uw.edu" target ="_blank">Emilio Zagheni</a>
 <sup>[1](#UW)</sup>, <a href = "mailto:kpolimis@uw.edu" target ="_blank">Kivan Polimis</a>
@@ -9,6 +9,7 @@ This repository contains the materials prepared by <a href = "mailto:ezagheni@uw
 folder | contents
 
 
+folder | contents
 ---|---------
 `Collect_Tweets` | Twitter API module
 `Estimate_Facebook_Audience` | Facebook Marketing API module
