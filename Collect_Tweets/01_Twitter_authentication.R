@@ -54,6 +54,8 @@ twitCred<- OAuthFactory$new(consumerKey=consumerKey,consumerSecret=consumerSecre
 ## IMPORTANT: run the following line only, not together with the next line
 twitCred$handshake(cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl"))
 
+## create a folder called "credentials" or use the following command
+system("mkdir credentials")
 
 ## Save the authentication object
 save(twitCred, file = "credentials/twitCred.Rdata")
